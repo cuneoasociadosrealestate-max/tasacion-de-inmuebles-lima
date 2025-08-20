@@ -1,7 +1,7 @@
 // Base de datos actualizada de precios por m² en Lima - Agosto 2024
 // Precios en soles peruanos (S/) por metro cuadrado
 
-const data = {
+const DATA = {
   // === LIMA TOP (Distritos Premium) ===
   "San Isidro": {
     type: ["Departamento", "Casa", "Terreno"],
@@ -666,44 +666,8 @@ function getDistrictsByCategory() {
     "Callao": ["Callao", "Bellavista", "La Perla", "La Punta", "Ventanilla", "Mi peru"]
     };
   }
-  // Función para validación con reglas específicas del mercado peruano
-function validateRealEstateData() {
-  const errors = [];
-  const warnings = [];
-  
-  Object.entries(DATA).forEach(([district, data]) => {
-    // Verificar estructura básica
-    if (!data.zones || Object.keys(data.zones).length === 0) {
-      errors.push(`${district}: No tiene zonas definidas`);
-    }
-    
-    // Validar precios realistas para el mercado peruano (2024-2025)
-    if (data.zones) {
-      Object.entries(data.zones).forEach(([zone, price]) => {
-        if (price < 2000 || price > 15000) {
-          warnings.push(`${district}.${zone}: Precio ${price} fuera del rango típico del mercado (S/2,000 - S/15,000)`);
-        }
-        
-        if (typeof price !== 'number') {
-          errors.push(`${district}.${zone}: Precio debe ser numérico`);
-        }
-      });
-    }
-  });
-  
-  return { errors, warnings };
-}
 
-// Exportar para uso
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { 
-    DATA, 
-    getMarketStats, 
-    findByPriceRange, 
-    getDistrictsByCategory, 
-    validateRealEstateData 
-  };
-}
+
 
 
 
